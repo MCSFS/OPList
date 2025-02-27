@@ -1,0 +1,13 @@
+name: OPList
+main: cn.mcsfs.oPList.OPList
+version: 1.1.0
+api-version: "1.12"  # 最低支持版本
+commands:
+  mcsfsadmin:
+    description: 重载插件配置
+    usage: /<command> reload
+    permission: mcsfsadmin.reload
+permissions:
+  mcsfsadmin.reload:
+    description: 允许重载插件配置
+    default: op

@@ -1,0 +1,9 @@
+# 允许保留OP的玩家名单
+allowed_ops:
+  - 'trusted_admin'
+
+# 当发现非法OP时执行的自定义命令（可用 {player} 作为占位符）
+custom_command: 'ban {player} 非法获取管理员权限'
+
+# 封禁后的广播消息（可用 {player} 作为占位符）
+broadcast_message: '&c玩家 &6{player} &c因非法获取OP权限已被封禁！'

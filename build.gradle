@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+group = 'cn.mcsfs.oPList'
+version = '1.1.0'
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.21.3-R0.1-SNAPSHOT' // 使用Spigot API
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') { // 注意文件名改为 plugin.yml
+        expand props
+    }
+}
+
+shadowJar {
+    archiveFileName = "MCSFS-Admin-${version}.jar"
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8' // 设置源码编码为 UTF-8
+}
