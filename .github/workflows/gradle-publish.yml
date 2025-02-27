@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write  # 必须要有写packages的权限
+      packages: write
 
     steps:
     - uses: actions/checkout@v4
@@ -19,21 +19,22 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
-        server-id: github  # 必须与pom.xml中的repository id一致
-        settings-path: ${{ github.workspace }}  # 自动生成Maven配置
+        server-id: github
+        settings-path: ${{ github.workspace }}
 
     - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v4
+      uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582
 
-    - name: Build and Publish
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 自动注入的token
-      run: |
-        ./gradlew build publish  # 同时执行构建和发布
+    - name: Permissions
+      run: chmod +x ./gradlew
 
+    - name: Build with Gradle
+      run: ./gradlew build
+
+    # 新增上传制品步骤
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
         name: build-artifacts
-        path: build/libs/*.jar
+        path: build/libs/*.jar  # 根据实际构建产物路径调整
         retention-days: 7
