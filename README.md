@@ -74,7 +74,7 @@ broadcast_message: '&c玩家 &6{player} &c因非法获取OP权限已被封禁！
 1. 下载最新版本插件
 2. 将jar文件放入服务器的`plugins/`目录
 3. 重启服务器生成配置文件
-4. 编辑`plugins/OPGuard/config.yml`进行配置
+4. 编辑`plugins/OPList/config.yml`进行配置
 5. 重载配置文件或重启服务器生效
 
 ## 注意事项
