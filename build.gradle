@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'maven-publish'
 }
 
 group = 'cn.mcsfs.oPList'
@@ -31,26 +30,4 @@ shadowJar {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8' // 设置源码编码为 UTF-8
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-            groupId = 'com.github.MCSFS'  // 替换为你的GitHub用户名
-            artifactId = project.name
-            version = project.version
-        }
-    }
-
-    repositories {
-        maven {
-            name = "github"
-            url = uri("https://maven.pkg.github.com/MCSFS/OPList") // 替换为你的仓库路径
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
 }
