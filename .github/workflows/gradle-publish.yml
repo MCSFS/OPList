@@ -38,3 +38,16 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
 
+    - name: Build and Publish
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 自动注入的token
+      run: |
+        ./gradlew build publish  # 同时执行构建和发布
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-artifacts
+        path: build/libs/*.jar
+        retention-days: 7
+
