@@ -1,4 +1,4 @@
-# OPGuard - 智能OP权限守护插件
+# OPList - 智能OP权限守护插件
 
 ![Minecraft](https://img.shields.io/badge/Minecraft-1.21-blueviolet?style=flat-square)
 ![Spigot](https://img.shields.io/badge/Spigot-API%207.0%2B-yellow?style=flat-square)
