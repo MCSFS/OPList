@@ -31,19 +31,34 @@ public final class OPList extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        // 注册事件监听器
-        getServer().getPluginManager().registerEvents(this, this);
+        // 获取服务器版本
+        String version = "Unknown";
+        try {
+            String packageName = Bukkit.getServer().getClass().getPackage().getName();
+            String[] parts = packageName.split("\\.");
+            if (parts.length >= 4) {
+                version = parts[3]; // 例如 "v1_21_R1"
+            } else {
+                version = Bukkit.getServer().getBukkitVersion(); // 备用方案
+            }
+        } catch (Exception e) {
+            getLogger().warning("无法获取服务器版本，使用备用方案");
+            version = Bukkit.getServer().getBukkitVersion(); // 备用方案
+        }
+        getLogger().info("服务器版本: " + version);
 
+        // 注册事件和命令
+        getServer().getPluginManager().registerEvents(this, this);
         saveDefaultConfig();
         reloadConfiguration();
 
         PluginCommand command = getCommand("oplist");
         if (command != null) {
             command.setExecutor(this);
-        } else {
-            getLogger().severe("命令注册失败，请检查plugin.yml配置！");
+            command.setTabCompleter(this);
         }
 
+        // 启动定时任务
         taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(this, this::checkOPs, 0L, 20L);
         getLogger().info("插件已启动 v" + getDescription().getVersion());
     }
